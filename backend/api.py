@@ -36,6 +36,18 @@ def addHeaders(data):
     response.mimetype = 'application/json'
     return response
 
+@app.route('/dataselect', methods=['GET'])
+def get_data_select():
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute("SELECT idProduct, productName FROM produtos")
+        data = cur.fetchall()
+        cur.close()
+        data = addHeaders(organizeData(data))
+        return data
+    except Exception as e:
+        return jsonify({'message': re.findall(r"\d{4}", str(e))})
+
 @app.route('/data', methods=['GET'])
 def get_data():
     try:

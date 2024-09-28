@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Row from "./row/Row";
-
+import Entrada from '../operacoes/entrada'
+import Saida from '../operacoes/saida'
 
 function getApiData() {
   const apiUrl = "http://localhost:5000/data";
@@ -28,7 +29,6 @@ function getApiData() {
         "Access-Control-Allow-Origin": "*"
       }
     });
-    // const result = await fetch(apiUrl);
     console.log(result);
     const getResult = await result.json();
     console.log(getResult);
@@ -169,9 +169,11 @@ function getApiData() {
         Descrição
         </div>
         <div className="headerCell">
+          <Entrada />
+          <Saida />
         </div>
       </div>
-      {/* <div className="row">
+      <div className="row">
         <div className="idCell"></div>
         <div className="cell">
           <input type="text" className="inputNew" value={newNameValue} onChange={newName} required />
@@ -188,7 +190,7 @@ function getApiData() {
         <div className="cell">
           <button onClick={addData}>Add Produto</button>
         </div>
-      </div> */}
+      </div>
 
       {datas.map((x) => {
         return (

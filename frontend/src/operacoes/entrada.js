@@ -1,24 +1,23 @@
-import React, { useState } from 'react';
-import Select from 'react-select';
+import React, { useState } from "react";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+import Select from '../select'
+import { Dialog } from 'primereact/dialog';
 
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' },
-  ];
 
-function Entrada(){
-    const [selectedOption, setSelectedOption] = useState(null);
+function Entrada() {
 
+    const [visible, setVisible] = useState(false);
     return (
-      <div>
-        <Select
-          defaultValue={selectedOption}
-          onChange={setSelectedOption}
-          options={options}
-        />
-      </div>
-    );
+    <div className="modal">
+    <button className="entrada" label="Show" icon="pi pi-external-link" onClick={() => setVisible(true)}>Entrada</button>
+    <Dialog header={"Registrar entrada"} visible={visible} style={{ width: '50vw', height: '50vw'}} onHide={() => {if (!visible) return; setVisible(false); }}>
+        <Select/>
+        <p className="m-0">
+            
+        
+        </p>
+    </Dialog>
+    </div>)
 }
 
 export default Entrada;
