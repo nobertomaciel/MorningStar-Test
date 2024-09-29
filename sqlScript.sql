@@ -27,32 +27,19 @@ CREATE TABLE `movimento` (
   `idProduct` int DEFAULT NULL,
   `quantity` int NOT NULL,
   `dateTime` timestamp NOT NULL,
-  `produtos_idProduct` int NOT NULL,
-  `tipo` int NOT NULL,
-  PRIMARY KEY (`idEntrance`,`produtos_idProduct`),
-  KEY `fk_entradas_produtos_idx` (`produtos_idProduct`),
-  CONSTRAINT `fk_entradas_produtos` FOREIGN KEY (`produtos_idProduct`) REFERENCES `produtos` (`idProduct`)
+  `type` int NOT NULL,
+  PRIMARY KEY (`idEntrance`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `produtos`
+-- Dumping data for table `movimento`
 --
 
-DROP TABLE IF EXISTS `produtos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `produtos` (
-  `productName` varchar(100) NOT NULL,
-  `productType` varchar(50) NOT NULL,
-  `manufactorer` varchar(100) NOT NULL,
-  `description` text,
-  `dateTime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `idProduct` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`idProduct`),
-  UNIQUE KEY `productName` (`productName`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `movimento` WRITE;
+/*!40000 ALTER TABLE `movimento` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimento` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -63,4 +50,4 @@ CREATE TABLE `produtos` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-09-29 15:42:53
+-- Dump completed on 2024-09-29 15:51:12
