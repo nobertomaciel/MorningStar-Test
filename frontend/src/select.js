@@ -1,14 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { InputNumber } from 'primereact/inputnumber';
-        
 
-
-function productSelect(){
+function productSelect({ onSelectChange, onQuantityChange }){
     const apiUrl = "http://localhost:5000/data";
     const [selectedOption, setSelectedOption] = useState(null);
+    const [quant, setQuant] = useState(0);
     const options = [];
-    const [quant, setQuant] = useState(1);
     async function getData() {
       const result = await fetch(apiUrl, {
         method: "GET",
@@ -23,7 +21,21 @@ function productSelect(){
       });
     }
 
-    getData();
+    useEffect(() => {
+      getData();
+    }, []);
+
+    useEffect(() => {
+      if (selectedOption) {
+        onSelectChange(selectedOption);
+        getData();
+      }
+    }, [selectedOption, onSelectChange]);
+
+    useEffect(() => {
+      onQuantityChange(quant);
+      getData();
+    }, [quant, onQuantityChange]);
 
     return (
       <div className="card flex flex-wrap gap-3 p-fluid">
@@ -33,7 +45,7 @@ function productSelect(){
         </div>
         <div className="flex-auto">
                 <label htmlFor="quantidade" className="font-bold block mb-2">Quantidade</label>
-                <InputNumber inputId="quantidade" value={quant} onValueChange={(e) => setQuant(e.value)} mode="decimal" showButtons min={1} max={10000000} />
+                <InputNumber inputId="quantidade" value={quant} onValueChange={(e) => setQuant(e.value)} mode="decimal" showButtons min={0} max={10000000} />
         </div>
       </div>
     );

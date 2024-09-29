@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Row from "./row/Row";
-import Entrada from '../operacoes/entrada'
+import Entrada from '../operacoes/movimentar'
 import Saida from '../operacoes/saida'
 
 function getApiData() {

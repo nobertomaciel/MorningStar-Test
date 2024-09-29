@@ -8,10 +8,15 @@ function Header() {
 		<div className="App">
 			<header className="App-header">
                 <table width={"100%"}>
-					<tr>
-                        <td><img src={logo} width="246px" height="42px" className="App-logo" alt="logotipo"></img></td>
-                        <td><h3>Cadastro de mercadorias</h3></td>
-                    </tr>
+					<thead>
+						<tr>
+							<td><img src={logo} width="246px" height="42px" className="App-logo" alt="logotipo"></img></td>
+							<td><h3>Cadastro de mercadorias</h3></td>
+						</tr>
+					</thead>
+					<tbody>
+						
+					</tbody>
 				</table>
 			</header>
 		</div>
