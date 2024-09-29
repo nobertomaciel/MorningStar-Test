@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Select from '../select'
+import Select from '../../frontend/src/componentes/select'
 import { Dialog } from 'primereact/dialog';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 

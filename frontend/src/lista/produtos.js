@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import Row from "./row/Row";
 import Entrada from '../operacoes/movimentar'
-import Saida from '../operacoes/saida'
 
 function getApiData() {
   const apiUrl = "http://localhost:5000/data";
@@ -170,7 +169,6 @@ function getApiData() {
         </div>
         <div className="headerCell">
           <Entrada />
-          <Saida />
         </div>
       </div>
       <div className="row">
