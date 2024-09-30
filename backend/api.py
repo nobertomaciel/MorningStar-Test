@@ -29,7 +29,7 @@ def organizeSelectData(data):
     return assocData
 
 def organizeMovimentData(data):
-    keysList = ["idEntrance","idProduct","quantity","dateTime","type"]
+    keysList = ["idProduct","month","quantity","type"]
     assocData = []
     for arr in data:
         d = dict()
@@ -74,7 +74,7 @@ def get_data():
 def get_moviment_by_id(id):
     try:
         cur = mysql.connection.cursor()
-        cur.execute('''SELECT idEntrance, idProduct, quantity, dateTime, type FROM movimento WHERE idProduct = %s ORDER BY type''', (id,))
+        cur.execute('''SELECT idProduct, MONTH(dateTime) AS month, SUM(quantity) AS quantity, type FROM movimento WHERE idProduct = %s GROUP BY month, idProduct, type ORDER BY type''', (id,))
         data = cur.fetchall()
         cur.close()
         data = addHeaders(organizeMovimentData(data))

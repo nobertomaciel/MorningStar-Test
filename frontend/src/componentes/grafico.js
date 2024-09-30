@@ -16,13 +16,13 @@ function Grafico({idProduct}) {
                     label: 'Entradas',
                     backgroundColor: documentStyle.getPropertyValue('--blue-500'),
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    data: [65, 59, 80, 81, 56, 55, 40]
+                    data: Array(12).fill(0)
                 },
                 {
                     label: 'Saídas',
                     backgroundColor: documentStyle.getPropertyValue('--pink-500'),
                     borderColor: documentStyle.getPropertyValue('--pink-500'),
-                    data: [28, 48, 40, 19, 86, 27, 90]
+                    data: Array(12).fill(0)
                 }
             ]
     );
@@ -38,35 +38,44 @@ function Grafico({idProduct}) {
                     }
                 });
                 const getResult = await result.json();
+                
+                const saidas = Array(12).fill(0);
+                const entradas = Array(12).fill(0);
+                getResult.forEach(e => {
+                    console.log("tipo"+e.type)
+                    console.log("mês"+e.month)
+                    console.log("quantidade"+e.quantity)
+                    e.type == 1 ? entradas[e.month] = e.quantity : saidas[e.month] = e.quantity;
+                });
+
                 console.log(getResult);
+
+                setdatasetsReturned(
+                    [   
+                        {
+                            label: "Entradas",
+                            backgroundColor: documentStyle.getPropertyValue('--blue-500'),
+                            borderColor: documentStyle.getPropertyValue('--blue-500'),
+                            data: entradas
+                        },
+                        {
+                            label: 'Saídas',
+                            backgroundColor: documentStyle.getPropertyValue('--pink-500'),
+                            borderColor: documentStyle.getPropertyValue('--pink-500'),
+                            data: saidas
+                        }
+                    ]
+                );
             }
             getData();
 
-            setdatasetsReturned(
-                
-            );
-
             const data = {
-                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
                 datasets: datasetsReturned
-                // datasets: [
-                //     {
-                //         label: 'Entradas',
-                //         backgroundColor: documentStyle.getPropertyValue('--blue-500'),
-                //         borderColor: documentStyle.getPropertyValue('--blue-500'),
-                //         data: [65, 59, 80, 81, 56, 55, 40]
-                //     },
-                //     {
-                //         label: 'Saídas',
-                //         backgroundColor: documentStyle.getPropertyValue('--pink-500'),
-                //         borderColor: documentStyle.getPropertyValue('--pink-500'),
-                //         data: [28, 48, 40, 19, 86, 27, 90]
-                //     }
-                // ]
             };
             const options = {
                 maintainAspectRatio: false,
-                aspectRatio: 0.8,
+                aspectRatio: 1,
                 plugins: {
                     legend: {
                         labels: {
@@ -114,7 +123,7 @@ function Grafico({idProduct}) {
                 {idProduct} {isVisible ? 'hide' : 'show'}
             </button>
             {isVisible && (
-                <Chart style={{position:'absolute', left:'300px', top:'200px', background: 'white'}} type="bar" data={chartData} options={chartOptions}/>
+                <Chart width='700px' height='300px' style={{position:'absolute', left:'150px', top:'100px', background: '#fff'}} type="bar" data={chartData} options={chartOptions}/>
             )}
         </div>
     );
