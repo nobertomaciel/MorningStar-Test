@@ -29,7 +29,7 @@ def organizeSelectData(data):
     return assocData
 
 def organizeMovimentData(data):
-    keysList = ["idProduct","month","quantity","type"]
+    keysList = ["idProduct","month","quantity","type", "productName"]
     assocData = []
     for arr in data:
         d = dict()
@@ -74,7 +74,7 @@ def get_data():
 def get_moviment_by_id(id):
     try:
         cur = mysql.connection.cursor()
-        cur.execute('''SELECT idProduct, MONTH(dateTime) AS month, SUM(quantity) AS quantity, type FROM movimento WHERE idProduct = %s GROUP BY month, idProduct, type ORDER BY type''', (id,))
+        cur.execute('''SELECT movimento.idProduct, MONTH(movimento.dateTime) AS month, SUM(movimento.quantity) AS quantity, movimento.type, produtos.productName FROM movimento INNER JOIN produtos on produtos.idProduct=movimento.idProduct WHERE movimento.idProduct = %s GROUP BY month, movimento.idProduct, type ORDER BY movimento.type''', (id,))
         data = cur.fetchall()
         cur.close()
         data = addHeaders(organizeMovimentData(data))
@@ -143,7 +143,7 @@ def update_data(id):
 def delete_data(id):
     try:
         cur = mysql.connection.cursor()
-        cur.execute('''DELETE FROM produtos WHERE idProduct = %s''', (id,))
+        cur.execute('''DELETE FROM produtos WHERE idProduct = %s''', (id))
         mysql.connection.commit()
         cur.close()
         return jsonify({'message': 'Data deleted successfully'})

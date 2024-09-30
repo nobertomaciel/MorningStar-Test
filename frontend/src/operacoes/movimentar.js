@@ -63,8 +63,8 @@ function Movimentar() {
       
     return (
     <div className="modal">
-        <button className="entrada" icon="pi pi-external-link" onClick={() => setVisible({"show":true,"tipo":1,"header":"Registro de entrada"})}>Entrada</button>
-        <button className="saida" icon="pi pi-external-link" onClick={() => setVisible({"show":true,"tipo":2,"header":"Registro de saída"})}>Saída</button>
+        <button className="entrada" icon="pi pi-external-link" onClick={() => setVisible({"show":true,"tipo":1,"header":"Registro de entrada"})}>+</button>
+        <button className="saida" icon="pi pi-external-link" onClick={() => setVisible({"show":true,"tipo":2,"header":"Registro de saída"})}>-</button>
         <Dialog header={visible.header} visible={visible.show} style={{ width: '50vw', height: '50vw'}} onHide={() => {if (!visible.show) return; setVisible({"show":false,"tipo":visible.tipo,"header":visible.header}); }}>
              
              <ProductSelect onSelectChange={handleSelectChange} onQuantityChange={handleQuantityChange} />

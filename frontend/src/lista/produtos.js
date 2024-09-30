@@ -168,7 +168,7 @@ function getApiData() {
         <div className="headerCell">
         Descrição
         </div>
-        <div className="headerCell">
+        <div style={{width:'50%'}} className="headerCell">
           <Movimentar />
         </div>
       </div>
@@ -186,7 +186,7 @@ function getApiData() {
         <div className="cell">
           <input type="text" className="inputNew" value={newDescriptionValue} onChange={newDescription} required />
         </div>
-        <div className="cell">
+        <div style={{width:'50%'}} className="cell">
           <button onClick={addData}>Add Produto</button>
         </div>
       </div>
