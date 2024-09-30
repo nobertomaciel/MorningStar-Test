@@ -1,3 +1,5 @@
+import Grafico from "../../componentes/grafico";
+
 function Row(props) {
   return (
     <div className="row">
@@ -77,6 +79,7 @@ function Row(props) {
             >
               Remover
             </button>
+            <Grafico idProduct={props.x.id}/>
           </>
         )}
         {props.editMode && props.x.id === props.editId && (

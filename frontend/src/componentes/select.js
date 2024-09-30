@@ -7,6 +7,7 @@ function productSelect({ onSelectChange, onQuantityChange }){
     const [selectedOption, setSelectedOption] = useState(null);
     const [quant, setQuant] = useState(0);
     const options = [];
+
     async function getData() {
       const result = await fetch(apiUrl, {
         method: "GET",

@@ -18,8 +18,18 @@ CORS(app)
 def raiz():
     return "servidor ativo"
 
-def organizeData(data):
+def organizeSelectData(data):
     keysList = ["id","productName","productType","productManufactorer","productDescription","dateTime"]
+    assocData = []
+    for arr in data:
+        d = dict()
+        for i in range(0, len(keysList)):
+            d[keysList[i]] = arr[i]
+        assocData.append(d)
+    return assocData
+
+def organizeMovimentData(data):
+    keysList = ["idEntrance","idProduct","quantity","dateTime","type"]
     assocData = []
     for arr in data:
         d = dict()
@@ -43,7 +53,7 @@ def get_data_select():
         cur.execute("SELECT idProduct, productName FROM produtos")
         data = cur.fetchall()
         cur.close()
-        data = addHeaders(organizeData(data))
+        data = addHeaders(organizeSelectData(data))
         return data
     except Exception as e:
         return jsonify({'message': re.findall(r"\d{4}", str(e))})
@@ -55,7 +65,19 @@ def get_data():
         cur.execute("SELECT idProduct, productName, productType, manufactorer, description, dateTime FROM produtos")
         data = cur.fetchall()
         cur.close()
-        data = addHeaders(organizeData(data))
+        data = addHeaders(organizeSelectData(data))
+        return data
+    except Exception as e:
+        return jsonify({'message': re.findall(r"\d{4}", str(e))})
+
+@app.route('/getmoviment/<int:id>', methods=['GET'])
+def get_moviment_by_id(id):
+    try:
+        cur = mysql.connection.cursor()
+        cur.execute('''SELECT idEntrance, idProduct, quantity, dateTime, type FROM movimento WHERE idProduct = %s ORDER BY type''', (id,))
+        data = cur.fetchall()
+        cur.close()
+        data = addHeaders(organizeMovimentData(data))
         return data
     except Exception as e:
         return jsonify({'message': re.findall(r"\d{4}", str(e))})
@@ -87,6 +109,19 @@ def add_data():
     except Exception as e:
         return jsonify({'message': re.findall(r"\d{4}", str(e))})
 
+@app.route('/moviment', methods=['POST'])
+def add_movimentData():
+    try:
+        cur = mysql.connection.cursor()
+        idProduct = request.json['idProduct']
+        movimentType = request.json['movimentType']
+        quantity = request.json['quantity']
+        cur.execute('''INSERT INTO movimento (idProduct, type, quantity) VALUES (%s, %s, %s)''', (idProduct, movimentType, quantity))
+        mysql.connection.commit()
+        cur.close()
+        return jsonify({'message': 'Data added successfully'})
+    except Exception as e:
+        return jsonify({'message': re.findall(r"\d{4}", str(e))})
 
 @app.route('/data/<int:id>', methods=['PUT'])
 def update_data(id):

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Row from "./row/Row";
-import Entrada from '../operacoes/movimentar'
+import Movimentar from '../operacoes/movimentar';
 
 function getApiData() {
   const apiUrl = "http://localhost:5000/data";
@@ -57,7 +57,8 @@ function getApiData() {
       method: "POST",
       body: JSON.stringify(newData),
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
       }
     });
     const getResult = await result.json();
@@ -168,7 +169,7 @@ function getApiData() {
         Descrição
         </div>
         <div className="headerCell">
-          <Entrada />
+          <Movimentar />
         </div>
       </div>
       <div className="row">
