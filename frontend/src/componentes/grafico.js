@@ -26,7 +26,7 @@ function Grafico({ idProduct }) {
         const saidas = Array(12).fill(0);
         const entradas = Array(12).fill(0);
         getResult.forEach(e => {
-            e.type === 1 ? entradas[e.month] = e.quantity : saidas[e.month] = e.quantity;
+            e.type === 1 ? entradas[e.month-1] = e.quantity : saidas[e.month-1] = e.quantity;
         });
 
         const datasetsReturned = [
