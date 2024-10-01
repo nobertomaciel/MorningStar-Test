@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Row from "./row/Row";
 import Movimentar from '../operacoes/movimentar';
+import Relatorio from "../operacoes/relatorio";
 
 function getApiData() {
   const apiUrl = "http://localhost:5000/data";
@@ -167,6 +168,7 @@ function getApiData() {
         </div>
         <div className="headerCell">
         Descrição
+        <Relatorio/>
         </div>
         <div style={{width:'50%'}} className="headerCell">
           <Movimentar />

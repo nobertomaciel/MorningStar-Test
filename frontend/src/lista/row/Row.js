@@ -72,7 +72,7 @@ function Row(props) {
             >
               {/* Editar */}
             </button>
-            <button style={{opacity: '0.3', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${TrashBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '20px', width: '20px', border: 'none'}}
+            <button disabled={true} style={{opacity: '0.3', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${TrashBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '20px', width: '20px', border: 'none'}}
               className="delete"
               id={props.x.id}
               onClick={() => {
