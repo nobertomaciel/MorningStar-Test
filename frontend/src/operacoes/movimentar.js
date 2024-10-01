@@ -41,25 +41,18 @@ function Movimentar({ setDatas }) {
             alert("Erro ao inserir registro de movimentação!");
             setVisible({"show":true,"tipo":visible.tipo,"header":visible.header});
           }
-          // else{
-          //   alert("Registro inserido!");
-          // }
 
-          // Atualizar os dados da lista de produtos após a inserção
-          const updatedData = await getData();  // Chama o getData para pegar os dados atualizados
-          setDatas(updatedData);  // Atualiza o estado datas
+          const updatedData = await getData();
+          setDatas(updatedData);
 
         }
         
         await putData();
 
             try {
-                const data = await getData();  // Use await para obter o resultado de getData
-                console.log('TEST setData');
-                console.log(data);
-
-                if (Array.isArray(data)) {  // Verifique se data é realmente um array
-                    setData(data);  // Atualiza o estado setData
+                const data = await getData();
+                if (Array.isArray(data)) {
+                    setDatas(data);
                 } else {
                     console.error("O retorno de getData não é um array:", data);
                 }
@@ -67,7 +60,6 @@ function Movimentar({ setDatas }) {
                 console.error("Erro ao obter os dados:", error);
             }
 
-        // salvar os dados
         setVisible({"show":false,"tipo":visible.tipo,"header":visible.header});
       }
       else if(quantity == 0){
