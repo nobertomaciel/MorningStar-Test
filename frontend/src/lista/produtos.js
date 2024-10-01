@@ -16,6 +16,7 @@ function getApiData() {
   const [typeValue, setTypeValue] = useState("");
   const [manufactorerValue, setManufactorerValue] = useState("");
   const [descriptionValue, setDescriptionValue] = useState("");
+  const [estoqueValue, setEstoqueValue] = useState("");
 
   useEffect(() => {
     getData();
@@ -74,7 +75,6 @@ function getApiData() {
     setNewNameValue("");
     setNewTypeValue("");
     setNewManufactorerValue("");
-    setNewDescriptionValue("");
   }
 
   async function patchData(id) {
@@ -91,7 +91,8 @@ function getApiData() {
       productName: nameValue,
       productType: typeValue,
       productManufactorer: manufactorerValue,
-      productDescription: descriptionValue
+      productDescription: descriptionValue,
+      productEstoque: estoqueValue
     };
     const result = await fetch(apiUrl + "/" + id, {
       method: "PUT",
@@ -155,19 +156,16 @@ function getApiData() {
     <div className="data_table">
       <div className="headerRow">
         <div className="headerIdCell">
-          ID
         </div>
         <div className="headerCell">
-          Nome
         </div>
         <div className="headerCell">
-        Tipo
         </div>
         <div className="headerCell">
-        Fabricante
         </div>
         <div className="headerCell">
-        Descrição
+        </div>
+        <div className="headerCell" style={{width:'50%', justifyContent: 'center'}}>
         <Relatorio/>
         </div>
         <div style={{width:'50%'}} className="headerCell">
@@ -189,7 +187,34 @@ function getApiData() {
           <input type="text" className="inputNew" value={newDescriptionValue} onChange={newDescription} required />
         </div>
         <div style={{width:'50%'}} className="cell">
-          <button onClick={addData}>Add Produto</button>
+        </div>
+        <div style={{width:'50%'}} className="cell">
+          <button onClick={addData}>Add</button>
+        </div>
+      </div>
+
+      <div className="headerRow">
+        <div className="headerIdCell">
+          ID
+        </div>
+        <div className="headerCell">
+          Nome
+        </div>
+        <div className="headerCell">
+        Tipo
+        </div>
+        <div className="headerCell">
+        Fabricante
+        </div>
+        <div className="headerCell">
+        Descrição
+        </div>
+        <div className="headerCell" style={{width:'50%', justifyContent: 'center'}}>
+        Estoque
+        {/* <Relatorio/> */}
+        </div>
+        <div style={{width:'50%'}} className="headerCell">
+          {/* <Movimentar /> */}
         </div>
       </div>
 
@@ -208,6 +233,8 @@ function getApiData() {
             setManufactorerValue={setManufactorerValue}
             descriptionValue={descriptionValue}
             setDescriptionValue={setDescriptionValue}
+            estoqueValue={estoqueValue}
+            setEstoqueValue={setEstoqueValue}
             rowEdit={rowEdit}
             deleteData={deleteData}
             patchData={patchData}

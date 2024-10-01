@@ -44,8 +44,8 @@ const Relatorio = () => {
    return (
       <div>
          <button style={{cursor: 'pointer', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${PrintBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '30px', width: '30px', border: 'none'}} onClick={() => generatePDF(getTargetElement, options)}></button>
-         <div id="content-id" style={{display: 'none'}}>
-            Content to be generated to PDF
+         <div id="content-id" style={{position: 'absolute', display: 'block'}}>
+            {/* Content to be generated to PDF */}
          </div>
       </div>
    );

@@ -89,6 +89,7 @@ html {
   justify-content: space-between;
   align-items: center;
   margin: 0 5px;
+  font-weight: bold;
 }
 
 .data_table .headerRow .headerIdCell{
@@ -100,6 +101,7 @@ html {
   justify-content: space-between;
   align-items: center;
   margin: 0 5px;
+  font-weight: bold;
 }
 
 .data_table .row .idCell{

@@ -19,7 +19,7 @@ def raiz():
     return "servidor ativo"
 
 def organizeSelectData(data):
-    keysList = ["id","productName","productType","productManufactorer","productDescription","dateTime"]
+    keysList = ["id","productName","productType","productManufactorer","productDescription","dateTime","estoque"]
     assocData = []
     for arr in data:
         d = dict()
@@ -61,8 +61,12 @@ def get_data_select():
 @app.route('/data', methods=['GET'])
 def get_data():
     try:
+        # SELECT produtos.idProduct, produtos.productName, produtos.productType, produtos.manufactorer, produtos.description, produtos.dateTime, COALESCE(SUM(CASE WHEN movimento.type = 1 THEN movimento.quantity ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN movimento.type = 2 THEN movimento.quantity ELSE 0 END), 0) AS estoque FROM produtos LEFT JOIN movimento ON produtos.idProduct = movimento.idProduct GROUP BY produtos.idProduct;
+        # SELECT produtos.idProduct, produtos.productName, produtos.productType, produtos.manufactorer, produtos.description, produtos.dateTime, SUM(CASE WHEN type = 1 THEN quantity ELSE 0 END) - SUM(CASE WHEN type = 2 THEN quantity ELSE 0 END) AS estoque FROM movimento INNER JOIN produtos ON produtos.idProduct=movimento.idProduct GROUP BY produtos.idProduct;
         cur = mysql.connection.cursor()
-        cur.execute("SELECT idProduct, productName, productType, manufactorer, description, dateTime FROM produtos")
+        # cur.execute("SELECT produtos.idProduct, produtos.productName, produtos.productType, produtos.manufactorer, produtos.description, produtos.dateTime FROM produtos INNER JOIN movimento ON produtos.idProduct=movimento.idProduct")
+        # cur.execute("SELECT produtos.idProduct, produtos.productName, produtos.productType, produtos.manufactorer, produtos.description, produtos.dateTime, SUM(CASE WHEN type = 1 THEN quantity ELSE 0 END) - SUM(CASE WHEN type = 2 THEN quantity ELSE 0 END) AS estoque FROM movimento INNER JOIN produtos ON produtos.idProduct=movimento.idProduct GROUP BY produtos.idProduct")
+        cur.execute("SELECT produtos.idProduct, produtos.productName, produtos.productType, produtos.manufactorer, produtos.description, produtos.dateTime, COALESCE(SUM(CASE WHEN movimento.type = 1 THEN movimento.quantity ELSE 0 END), 0) - COALESCE(SUM(CASE WHEN movimento.type = 2 THEN movimento.quantity ELSE 0 END), 0) AS estoque FROM produtos LEFT JOIN movimento ON produtos.idProduct = movimento.idProduct GROUP BY produtos.idProduct")
         data = cur.fetchall()
         cur.close()
         data = addHeaders(organizeSelectData(data))
