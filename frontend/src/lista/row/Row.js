@@ -61,13 +61,9 @@ function Row(props) {
           />
         )}
       </div>
-
-      {/* apresentar o estoque aqui */}
       <div className="cell" style={{width:'50%', justifyContent: 'center'}}>
         {props.x.estoque}
       </div>
-      {/* apresentar o estoque aqui */}
-
       <div className="cell" style={{width: '50%'}}>
         {!props.editMode && (
           <>
@@ -78,16 +74,14 @@ function Row(props) {
                 props.rowEdit(props.x);
               }}
             >
-              {/* Editar */}
             </button>
-            <button disabled={true} style={{opacity: '0.3', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${TrashBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '20px', width: '20px', border: 'none'}}
+            <button disabled={false} style={{opacity: '1', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${TrashBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '20px', width: '20px', border: 'none'}}
               className="delete"
               id={props.x.id}
               onClick={() => {
                 props.deleteData(props.x.id);
               }}
             >
-              {/* Remover */}
             </button>
             <Grafico idProduct={props.x.id}/>
           </>

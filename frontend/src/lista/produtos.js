@@ -39,25 +39,6 @@ function getApiData() {
     fetchData();
   }, []);
 
-  // useEffect(() => {
-  //   getData();
-  // }, []);
-
-  // async function getData() {
-  //   const result = await fetch(apiUrl, {
-  //     method: "GET",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "Access-Control-Allow-Origin": "*"
-  //     }
-  //   });
-  //   console.log(result);
-  //   const getResult = await result.json();
-  //   console.log(getResult);
-  //   setDatas(getResult);
-  // }
-
-
   async function addData() {
     if(newNameValue == "" || newTypeValue == "" || newManufactorerValue == ""){
       alert("Todos os campos devem ser preenchidos!");
@@ -99,6 +80,7 @@ function getApiData() {
     setNewNameValue("");
     setNewTypeValue("");
     setNewManufactorerValue("");
+    setNewDescriptionValue("");
   }
 
   async function patchData(id) {
@@ -194,13 +176,13 @@ function getApiData() {
         <div className="headerCell">
         </div>
         <div className="headerCell" style={{width:'50%', justifyContent: 'center'}}>
-        <Relatorio/>
+        <Relatorio setDatas={setDatas} />
         </div>
         <div style={{width:'50%'}} className="headerCell">
           <Movimentar setDatas={setDatas} />
         </div>
       </div>
-      <div className="row">
+      <div className="row" style={{background: 'white'}}>
         <div className="idCell"></div>
         <div className="cell">
           <input type="text" className="inputNew" value={newNameValue} onChange={newName} required />
@@ -239,10 +221,8 @@ function getApiData() {
         </div>
         <div className="headerCell" style={{width:'50%', justifyContent: 'center'}}>
         Estoque
-        {/* <Relatorio/> */}
         </div>
         <div style={{width:'50%'}} className="headerCell">
-          {/* <Movimentar /> */}
         </div>
       </div>
 
