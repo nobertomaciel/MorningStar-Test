@@ -147,7 +147,8 @@ def update_data(id):
 def delete_data(id):
     try:
         cur = mysql.connection.cursor()
-        cur.execute('''DELETE FROM produtos WHERE idProduct = %s''', (id))
+        cur.execute('''DELETE IGNORE FROM movimento WHERE idProduct = %s''', (id,))
+        cur.execute('''DELETE FROM produtos WHERE idProduct = %s''', (id,))
         mysql.connection.commit()
         cur.close()
         return jsonify({'message': 'Data deleted successfully'})

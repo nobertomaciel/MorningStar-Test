@@ -8,7 +8,7 @@ import * as yup from "yup";
 function getApiData() {
   const apiUrl = "http://localhost:5000/data";
   //const apiUrl = "https://614b8c82e4cc2900179eb140.mockapi.io/api/v1/restaurants";
-  const [datas, setDatas] = useState([]);
+  const [datas, setData] = useState([]);
 
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState(""); //current selected id
@@ -30,7 +30,7 @@ function getApiData() {
   async function getData() {
     const result = await fetch(apiUrl);
     const getResult = await result.json();
-    setDatas(getResult);
+    setData(getResult);
   }
 
   async function addData() {

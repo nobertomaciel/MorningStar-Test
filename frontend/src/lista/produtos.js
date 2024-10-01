@@ -3,8 +3,21 @@ import Row from "./row/Row";
 import Movimentar from '../operacoes/movimentar';
 import Relatorio from "../operacoes/relatorio";
 
+const apiUrl = "http://localhost:5000/data";
+
+export async function getData() {
+  const result = await fetch(apiUrl, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*"
+    }
+  });
+  const getResult = await result.json();
+  return getResult;
+}
+
 function getApiData() {
-  const apiUrl = "http://localhost:5000/data";
   const [datas, setDatas] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editId, setEditId] = useState("");
@@ -19,22 +32,30 @@ function getApiData() {
   const [estoqueValue, setEstoqueValue] = useState("");
 
   useEffect(() => {
-    getData();
+    async function fetchData() {
+      const data = await getData();
+      setDatas(data);
+    }
+    fetchData();
   }, []);
 
-  async function getData() {
-    const result = await fetch(apiUrl, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*"
-      }
-    });
-    console.log(result);
-    const getResult = await result.json();
-    console.log(getResult);
-    setDatas(getResult);
-  }
+  // useEffect(() => {
+  //   getData();
+  // }, []);
+
+  // async function getData() {
+  //   const result = await fetch(apiUrl, {
+  //     method: "GET",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Access-Control-Allow-Origin": "*"
+  //     }
+  //   });
+  //   console.log(result);
+  //   const getResult = await result.json();
+  //   console.log(getResult);
+  //   setDatas(getResult);
+  // }
 
 
   async function addData() {
@@ -71,7 +92,10 @@ function getApiData() {
     console.log(getResult);
     setEditId(0);
     setEditMode(false);
-    getData();
+    
+    const updatedData = await getData();  
+    setDatas(updatedData);
+
     setNewNameValue("");
     setNewTypeValue("");
     setNewManufactorerValue("");
@@ -109,7 +133,9 @@ function getApiData() {
     console.log(getResult);
     setEditId(0);
     setEditMode(false);
-    getData();
+
+    const updatedData = await getData();  
+    setDatas(updatedData);
   }
 
   async function deleteData(id) {
@@ -123,7 +149,9 @@ function getApiData() {
       const getResult = await result.json();
       console.log(getResult);
       setEditMode(false);
-      getData();
+      
+      const updatedData = await getData();  
+      setDatas(updatedData);
     }
   }
 
@@ -169,7 +197,7 @@ function getApiData() {
         <Relatorio/>
         </div>
         <div style={{width:'50%'}} className="headerCell">
-          <Movimentar />
+          <Movimentar setDatas={setDatas} />
         </div>
       </div>
       <div className="row">

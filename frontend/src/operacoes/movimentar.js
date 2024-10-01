@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import ProductSelect from '../componentes/select';
 import { Dialog } from 'primereact/dialog';
+import { getData } from '../lista/produtos';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 
-function Movimentar() {
+function Movimentar({ setDatas }) {
     const [visible, setVisible] = useState({"show":false,"tipo":0,"header":""});
     const [selectedProduct, setSelectedProduct] = useState(null);
     const [quantity, setQuantity] = useState(1);
@@ -14,7 +15,7 @@ function Movimentar() {
     const handleQuantityChange = (quant) => {
       setQuantity(quant);
     };
-    const handleSave = () => {
+    const handleSave = async () => {
       console.log("Produto Selecionado:", selectedProduct);
       console.log("Quantidade:", quantity);
       if(quantity>0 && selectedProduct != null){
@@ -40,12 +41,31 @@ function Movimentar() {
             alert("Erro ao inserir registro de movimentação!");
             setVisible({"show":true,"tipo":visible.tipo,"header":visible.header});
           }
-          else{
-            alert("Registro inserido!");
-          }
+          // else{
+          //   alert("Registro inserido!");
+          // }
+
+          // Atualizar os dados da lista de produtos após a inserção
+          const updatedData = await getData();  // Chama o getData para pegar os dados atualizados
+          setDatas(updatedData);  // Atualiza o estado datas
+
         }
         
-        putData();
+        await putData();
+
+            try {
+                const data = await getData();  // Use await para obter o resultado de getData
+                console.log('TEST setData');
+                console.log(data);
+
+                if (Array.isArray(data)) {  // Verifique se data é realmente um array
+                    setData(data);  // Atualiza o estado setData
+                } else {
+                    console.error("O retorno de getData não é um array:", data);
+                }
+            } catch (error) {
+                console.error("Erro ao obter os dados:", error);
+            }
 
         // salvar os dados
         setVisible({"show":false,"tipo":visible.tipo,"header":visible.header});
