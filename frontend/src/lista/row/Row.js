@@ -3,7 +3,6 @@ import TrashBtn from "../../img/trash.svg";
 import EditBtn from "../../img/edit.svg";
 
 function Row(props) {
-  console.log(props);
   return (
     <div className="row">
       <div className="idCell">
@@ -62,7 +61,7 @@ function Row(props) {
         )}
       </div>
       <div className="cell" style={{width:'50%', justifyContent: 'center'}}>
-        {props.x.estoque}
+        {props.x.stock}
       </div>
       <div className="cell" style={{width: '50%'}}>
         {!props.editMode && (

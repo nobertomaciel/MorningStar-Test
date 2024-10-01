@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
 import generatePDF, { Resolution, Margin } from 'react-to-pdf';
 import PrintBtn from '../img/print.svg';
-import { getData } from '../lista/produtos';
 
 const options = {
    // default is `save`
@@ -42,61 +40,42 @@ const options = {
 // you can use a function to return the target element besides using React refs
 const getTargetElement = () => document.getElementById('content-id');
 
-
-
 const Imprimir = ({ data }) => {
-   // const [data, setData] = useState([]);
-
-   // useEffect(() => {
-   //    const fetchData = async () => {
-   //       try {
-   //          const result = await getData(); // Chame sua função getData
-   //          setData(result); // Armazene os dados no estado
-   //       } catch (error) {
-   //          console.error("Erro ao buscar os dados:", error);
-   //       }
-   //    };
-
-   //    fetchData(); // Chame a função fetchData
-   // }, []); // O array vazio garante que o efeito só seja executado uma vez
-
    return (
-         // <div>
-         //    <button 
-         //       style={{ 
-         //          cursor: 'pointer', 
-         //          backgroundColor: 'rgba(0,0,0,0)', 
-         //          backgroundImage: `url(${PrintBtn})`, 
-         //          backgroundSize: 'cover', 
-         //          backgroundRepeat: 'no-repeat', 
-         //          backgroundPosition: 'center', 
-         //          height: '30px', 
-         //          width: '30px', 
-         //          border: 'none' 
-         //       }} 
-         //       onClick={() => generatePDF(getTargetElement, options)}
-         //    ></button>
-            
-         //    <div id="content-id" style={{ position: 'absolute', display: 'block' }}>
-         //       {/* Renderize os dados aqui */}
-         //       <h2>Relatório de Produtos</h2>
-         //       <ul>
-         //          {data.map((item) => (
-         //             <li key={item.idProduct}>{item.productName}</li>
-         //          ))}
-         //       </ul>
-         //    </div>
-         // </div>
-
-      <div>
+      <div className='reportContent'>
+         <br></br>
          <button style={{cursor: 'pointer', backgroundColor: 'rgba(0,0,0,0)', backgroundImage: `url(${PrintBtn})`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', backgroundPosition: 'center', height: '30px', width: '30px', border: 'none'}} onClick={() => generatePDF(getTargetElement, options)}></button>
-         <div id="content-id" style={{position: 'absolute', display: 'block'}}>
-            {/* Content to be generated to PDF */}
-                   <ul>
-                   {data.map((item) => (
-                      <li key={item.idProduct}>{item.productName}</li>
-                   ))}
-                </ul>
+         <div id="content-id" style={{width: '100%', position: 'absolute', display: 'block'}}>
+                  <br></br>
+                  <h3>Relatório de estoque por período (mensal)</h3>
+                   <table id="table-content-id" style={{width: '100%'}}>
+                     <thead style={{fontWeight: 'bold'}}>
+                        <tr id="head-content-id">
+                           <td>ID</td>
+                           <td>Produto</td>
+                           <td>Tipo</td>
+                           <td>Fabricante</td>
+                           <td>Entradas</td>
+                           <td>Saídas</td>
+                           <td>Estoque</td>
+                           <td>Período</td>
+                        </tr>
+                     </thead>
+                     <tbody>
+                     {data.map((item) => (
+                        <tr key={item.idProduct}>
+                           <td>{item.idProduct}</td>
+                           <td>{item.productName}</td>
+                           <td>{item.productType}</td>
+                           <td>{item.productManufactorer}</td>
+                           <td>{item.total_entrance}</td>
+                           <td>{item.total_exit}</td>
+                           <td>{item.stock}</td>
+                           <td>{item.period}</td>
+                        </tr>
+                     ))}
+                     </tbody>
+                </table>
          </div>
       </div>
    );
